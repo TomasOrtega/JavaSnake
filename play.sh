@@ -1,4 +1,2 @@
-cd snake
-javac *.java
-cd ..
+javac snake/*.java
 java snake.Snake
