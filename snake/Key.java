@@ -26,5 +26,6 @@ public class Key {
     public static final int WALL = 1;
     public static final int SNAKE = 2;
     public static final int FOOD = 3;
+    public static final int VISITED = 4;
     
 }
