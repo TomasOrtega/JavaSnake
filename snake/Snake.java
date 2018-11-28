@@ -61,19 +61,14 @@ class Snake {
             keepPlay[1] = true; //play = true;
             getSize(in);
             String message = "END GAME, press any key to start, Q to quit. Highscore " + highscore;
-            if (highscore == 0) {
-                message = "NEW GAME, press any key to start";
-            } else {
-                System.out.print(Key.CURSOR_ORIGIN + Key.DELETE_ALL);
-            }
+            if (highscore == 0) message = "NEW GAME, press any key to start";
+            else System.out.print(Key.CURSOR_ORIGIN + Key.DELETE_ALL);
             StringBuilder welcomeGame = new StringBuilder();
             for (int j = 0; j < (cols / 2 - message.length() / 2); ++j) welcomeGame.append(' ');
             welcomeGame.append(message);
             for (int i = 0; i < rows; ++i) {
                 if (i != rows / 2) System.out.print("\n");
-                else {
-                    System.out.println(welcomeGame);
-                }
+                else System.out.println(welcomeGame);
             }
             Game game = new Game(rows, cols, in, keepPlay);
             highscore = Math.max(highscore, game.startGame());

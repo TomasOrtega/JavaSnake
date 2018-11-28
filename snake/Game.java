@@ -33,10 +33,8 @@ public class Game {
                 return 0;
             }
             board.display();
-
             TimerThread timer = new TimerThread();
             timer.start();
-
             while (keepPlay[0] && keepPlay[1]) {
                 r = read();
                 switch (r) {
@@ -44,8 +42,7 @@ public class Game {
                     case Key.LEFT_ARROW_INT:
                     case Key.UP_ARROW_INT:
                     case Key.DOWN_ARROW_INT:
-                        //Restart thread
-                        timer.cancel = true;
+                        timer.cancel = true; //Restart thread
                         board.changeDir(r);
                         timer = new TimerThread();
                         timer.start();

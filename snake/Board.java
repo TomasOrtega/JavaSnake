@@ -37,7 +37,6 @@ public class Board extends Observable{
     }
 
     public void genMap() {
-        //Make edges
         for (int i = 0; i < rows; ++i) {
             board[i][0] = Key.WALL;
             board[i][cols - 1] = Key.WALL;
@@ -46,7 +45,6 @@ public class Board extends Observable{
             board[0][j] = Key.WALL;
             board[rows - 1][j] = Key.WALL;
         }
-        //Build random walls
         int nwalls = Math.max(rows, cols) / 10;        
         for (int aux = 0; aux < nwalls; ++aux) {
             int i = rand.nextInt(rows);
@@ -74,14 +72,14 @@ public class Board extends Observable{
         }
     }
     
-    public void dfs(int[][] auxboard, int i, int j) {
+    public void bfs(int[][] auxboard, int i, int j) {
         LinkedList<SnakeBit> queue = new LinkedList<>();
         queue.add(new SnakeBit(i, j));
         while (!queue.isEmpty()) {
             SnakeBit elem = queue.pop();
             i = elem.i;
             j = elem.j;
-            if (i > 0 && j > 0 && j < cols && i < rows && auxboard[i][j] == Key.VOID) {
+            if (auxboard[i][j] == Key.VOID) { //We use walls in order to stay in the board
                 auxboard[i][j] = Key.VISITED;
                 queue.add(new SnakeBit(i + 1, j));
                 queue.add(new SnakeBit(i - 1, j));
@@ -102,7 +100,7 @@ public class Board extends Observable{
         for (int k = 0; k < rows; ++k) {
             for (int l = 0; l < cols; ++l) {
                 if (auxboard[k][l] == Key.VOID) {
-                    dfs(auxboard, k, l);
+                    bfs(auxboard, k, l);
                     return oneComponent(auxboard);
                 }
             }
@@ -122,7 +120,6 @@ public class Board extends Observable{
     }
 
     public void initSnake() {
-        //Start snake in random place
         int i, j;
         do {
             i = rand.nextInt(rows - 2) + 1;
@@ -140,7 +137,6 @@ public class Board extends Observable{
     }
     
     public void move() {
-        //try to move, if possible, along direction
         SnakeBit top = linkedSnake.peekFirst();
         int futureI = top.i;
         int futureJ = top.j;
@@ -217,7 +213,6 @@ public class Board extends Observable{
 
     @Override
     public String toString() {
-        //return a string representation of the board
         SnakeBit top = linkedSnake.peekFirst();
         StringBuilder fullBoard = new StringBuilder();
         for (int i = 0; i < rows; ++i) {
